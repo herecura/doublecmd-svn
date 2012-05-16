@@ -1,5 +1,5 @@
 pkgbase = doublecmd-svn
-	pkgver = 4843
+	pkgver = 4845
 	pkgrel = 1
 	url = http://doublecmd.sourceforge.net/
 	install = doublecmd-svn.install
