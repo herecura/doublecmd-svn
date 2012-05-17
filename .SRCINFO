@@ -1,5 +1,5 @@
 pkgbase = doublecmd-svn
-	pkgver = 4845
+	pkgver = 4846
 	pkgrel = 1
 	url = http://doublecmd.sourceforge.net/
 	install = doublecmd-svn.install
@@ -15,7 +15,8 @@ pkgbase = doublecmd-svn
 	optdepends = libunrar: support for rar archives
 	optdepends = zip: support for zip files
 	optdepends = unzip: support for zip files
-	provides = doublecmd-svn
+	provides = doublecmd
+	conflicts = doublecmd
 
 pkgname = doublecmd-svn-gtk2
 	pkgdesc = twin-panel (commander-style) file manager (GTK)
