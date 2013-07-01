@@ -1,5 +1,5 @@
 pkgbase = doublecmd-svn
-	pkgver = 5043
+	pkgver = 5244
 	pkgrel = 1
 	url = http://doublecmd.sourceforge.net/
 	install = doublecmd-svn.install
@@ -10,13 +10,15 @@ pkgbase = doublecmd-svn
 	makedepends = qt4pas
 	makedepends = gtk2
 	makedepends = subversion
-	optdepends = lua: scripting
+	optdepends = lua51: scripting
 	optdepends = p7zip: support for 7zip archives
 	optdepends = libunrar: support for rar archives
 	optdepends = zip: support for zip files
 	optdepends = unzip: support for zip files
 	provides = doublecmd
 	conflicts = doublecmd
+	source = doublecmd::svn://svn.code.sf.net/p/doublecmd/code/trunk
+	md5sums = SKIP
 
 pkgname = doublecmd-svn-gtk2
 	pkgdesc = twin-panel (commander-style) file manager (GTK)
