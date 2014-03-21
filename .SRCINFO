@@ -1,5 +1,5 @@
 pkgbase = doublecmd-svn
-	pkgver = 5480
+	pkgver = 5483
 	pkgrel = 1
 	url = http://doublecmd.sourceforge.net/
 	install = doublecmd-svn.install
@@ -17,11 +17,11 @@ pkgbase = doublecmd-svn
 	optdepends = unzip: support for zip files
 	provides = doublecmd
 	conflicts = doublecmd
-	noextract = lazarus-20140321.tar.gz
+	noextract = lazarus-20140321-2.tar.gz
 	source = doublecmd::svn://svn.code.sf.net/p/doublecmd/code/trunk
-	source = http://www.herecura.be/files/lazarus-20140321.tar.gz
+	source = http://www.herecura.be/files/lazarus-20140321-2.tar.gz
 	md5sums = SKIP
-	md5sums = d1d99c5358033a7b65239b1687531f5e
+	md5sums = e2eab1eb24c46412846494c20c6db2ab
 
 pkgname = doublecmd-svn-gtk2
 	pkgdesc = twin-panel (commander-style) file manager (GTK)
