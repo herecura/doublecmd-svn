@@ -17,8 +17,11 @@ pkgbase = doublecmd-svn
 	optdepends = unzip: support for zip files
 	provides = doublecmd
 	conflicts = doublecmd
+	noextract = lazarus-20140321.tar.gz
 	source = doublecmd::svn://svn.code.sf.net/p/doublecmd/code/trunk
+	source = http://www.herecura.be/files/lazarus-20140321.tar.gz
 	md5sums = SKIP
+	md5sums = d1d99c5358033a7b65239b1687531f5e
 
 pkgname = doublecmd-svn-gtk2
 	pkgdesc = twin-panel (commander-style) file manager (GTK)
