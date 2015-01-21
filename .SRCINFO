@@ -1,6 +1,6 @@
 pkgbase = doublecmd-svn
 	pkgver = 5807
-	pkgrel = 1
+	pkgrel = 2
 	url = http://doublecmd.sourceforge.net/
 	install = doublecmd-svn.install
 	arch = i686
