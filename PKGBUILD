@@ -4,12 +4,11 @@
 pkgbase=doublecmd-svn
 _svnmod=doublecmd
 pkgname=('doublecmd-svn-gtk2' 'doublecmd-svn-qt')
-pkgver=6816
+pkgver=6817
 pkgrel=1
 url="http://doublecmd.sourceforge.net/"
 arch=('i686' 'x86_64')
 license=('GPL')
-install="$pkgbase.install"
 provides=('doublecmd')
 conflicts=('doublecmd')
 makedepends=('lazarus' 'qt4pas' 'gtk2' 'subversion')
@@ -63,14 +62,14 @@ build() {
 
 package_doublecmd-svn-gtk2() {
 	pkgdesc="twin-panel (commander-style) file manager (GTK)"
-	depends=('gtk2')
+	depends=('gtk2' 'desktop-file-utils' 'hicolor-icon-theme')
 	cd "$srcdir/$pkgbase-gtk"
 	./install/linux/install.sh --install-prefix="$pkgdir"
 }
 
 package_doublecmd-svn-qt() {
 	pkgdesc="twin-panel (commander-style) file manager (QT)"
-	depends=('qt4pas')
+	depends=('qt4pas' 'desktop-file-utils' 'hicolor-icon-theme')
 	cd "$srcdir/$pkgbase-qt"
 	./install/linux/install.sh --install-prefix="$pkgdir"
 }
