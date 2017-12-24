@@ -3,25 +3,28 @@
 
 pkgbase=doublecmd-svn
 _svnmod=doublecmd
-pkgname=('doublecmd-svn-gtk2' 'doublecmd-svn-qt')
-pkgver=7943
+pkgname=('doublecmd-svn-gtk2' 'doublecmd-svn-qt4' 'doublecmd-svn-qt5')
+pkgver=7951
 pkgrel=1
 url="http://doublecmd.sourceforge.net/"
 arch=('x86_64')
 license=('GPL')
 provides=('doublecmd')
 conflicts=('doublecmd')
-makedepends=('lazarus' 'qt4pas' 'gtk2' 'subversion')
-optdepends=('lua51: scripting' 'p7zip: support for 7zip archives' 'libunrar: support for rar archives' 'zip: support for zip files' 'unzip: support for zip files')
+makedepends=('lazarus' 'qt4pas' 'qt5pas' 'gtk2' 'subversion')
+optdepends=(
+	'lua51: scripting'
+    'unzip: support extracting zip archives'
+    'zip: suport packing zip archives'
+	'p7zip: support for 7zip archives'
+	'libunrar: support extracting rar archives'
+)
 source=(
 	"$_svnmod::svn://svn.code.sf.net/p/doublecmd/code/trunk"
-	"http://www.herecura.be/files/lazarus-20140321-2.tar.gz"
 )
-md5sums=(
+sha512sums=(
 	'SKIP'
-	'e2eab1eb24c46412846494c20c6db2ab'
 )
-noextract=('lazarus-20140321-2.tar.gz')
 
 pkgver() {
 	cd "$srcdir/$_svnmod"
@@ -29,47 +32,54 @@ pkgver() {
 }
 
 prepare() {
-	cd "$srcdir/$_svnmod"
-	#sed -e 's/\(export\ lazbuild=\).*/\1"$(which\ lazbuild) --lazarusdir=\/usr\/lib\/lazarus"/' -i build.sh
-	sed -e 's/LIB_SUFFIX=.*/LIB_SUFFIX=/g' -i ./install/linux/install.sh
+	cd "$_svnmod"
+    sed -e 's/LIB_SUFFIX=.*/LIB_SUFFIX=/g' -i install/linux/install.sh
+    sed -e 's/=$(which lazbuild)/="$(which lazbuild) --lazarusdir=\/usr\/lib\/lazarus"/' -i build.sh
 
 	cd "$srcdir"
 
-	[ -d "$pkgbase-gtk" ] && rm -rf "$pkgbase-gtk"
-	[ -d "$pkgbase-qt"  ] && rm -rf "$pkgbase-qt"
-
-	cp -a "$_svnmod" "$pkgbase-gtk"
-	cp -a "$_svnmod" "$pkgbase-qt"
+    cp -a "$_svnmod" "$pkgbase-gtk"
+    cp -a "$_svnmod" "$pkgbase-qt4"
+    cp -a "$_svnmod" "$pkgbase-qt5"
 }
 
 build() {
-	msg2 'build gtk'
-	gtkdir="$srcdir/$pkgbase-gtk"
-	cd "$gtkdir"
-	bsdtar -zxf "$srcdir/lazarus-20140321-2.tar.gz"
-	sed -e "s/\\(export\\ lazbuild=\\).*/\\1\"\$(which lazbuild) --primary-config-path=${gtkdir//\//\\\/}\/lazarus\/lazarus-$CARCH\"/" -i build.sh
-	sed -e "s/%%SRCDIR%%/${gtkdir//\//\\\/}/g" -i lazarus/packagefiles.xml
-	./build.sh beta gtk2
+    msg2 'build gtk'
+    cd "$srcdir/$pkgbase-gtk"
+    ./build.sh beta gtk2
 
-	msg2 'build qt'
-	qtdir="$srcdir/$pkgbase-qt"
-	cd "$qtdir"
-	bsdtar -zxf "$srcdir/lazarus-20140321-2.tar.gz"
-	sed -e "s/\\(export\\ lazbuild=\\).*/\\1\"\$(which lazbuild) --primary-config-path=${qtdir//\//\\\/}\/lazarus\/lazarus-$CARCH\"/" -i build.sh
-	sed -e "s/%%SRCDIR%%/${qtdir//\//\\\/}/g" -i lazarus/packagefiles.xml
-	./build.sh beta qt
+    msg2 'build qt4'
+    cd "$srcdir/$pkgbase-qt4"
+    ./build.sh beta qt
+
+    msg2 'build qt5'
+    cd "$srcdir/$pkgbase-qt5"
+    ./build.sh beta qt5
 }
 
 package_doublecmd-svn-gtk2() {
 	pkgdesc="twin-panel (commander-style) file manager (GTK)"
-	depends=('gtk2' 'desktop-file-utils' 'hicolor-icon-theme')
+    depends=('gtk2' 'desktop-file-utils' 'hicolor-icon-theme' 'shared-mime-info')
+    conflicts=('doublecmd-qt4' 'doublecmd-qt5')
+    provides=('doublecmd-gtk2')
 	cd "$srcdir/$pkgbase-gtk"
 	./install/linux/install.sh --install-prefix="$pkgdir"
 }
 
-package_doublecmd-svn-qt() {
-	pkgdesc="twin-panel (commander-style) file manager (QT)"
-	depends=('qt4pas' 'desktop-file-utils' 'hicolor-icon-theme')
-	cd "$srcdir/$pkgbase-qt"
+package_doublecmd-svn-qt4() {
+	pkgdesc="twin-panel (commander-style) file manager (Qt4)"
+    depends=('qt4pas' 'desktop-file-utils' 'hicolor-icon-theme' 'shared-mime-info')
+    conflicts=('doublecmd-gtk2' 'doublecmd-qt5')
+    provides=('doublecmd-qt4')
+	cd "$srcdir/$pkgbase-qt4"
+	./install/linux/install.sh --install-prefix="$pkgdir"
+}
+
+package_doublecmd-svn-qt5() {
+	pkgdesc="twin-panel (commander-style) file manager (Qt5)"
+    depends=('qt4pas' 'desktop-file-utils' 'hicolor-icon-theme' 'shared-mime-info')
+    conflicts=('doublecmd-gtk2' 'doublecmd-qt4')
+    provides=('doublecmd-qt5')
+	cd "$srcdir/$pkgbase-qt5"
 	./install/linux/install.sh --install-prefix="$pkgdir"
 }
