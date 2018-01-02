@@ -4,7 +4,7 @@
 pkgbase=doublecmd-svn
 _svnmod=doublecmd
 pkgname=('doublecmd-svn-gtk2' 'doublecmd-svn-qt4' 'doublecmd-svn-qt5')
-pkgver=7958
+pkgver=7965
 pkgrel=1
 url="http://doublecmd.sourceforge.net/"
 arch=('x86_64')
@@ -32,9 +32,10 @@ pkgver() {
 }
 
 prepare() {
+    cp -a /usr/lib/lazarus ./
 	cd "$_svnmod"
     sed -e 's/LIB_SUFFIX=.*/LIB_SUFFIX=/g' -i install/linux/install.sh
-    sed -e 's/=$(which lazbuild)/="$(which lazbuild) --lazarusdir=\/usr\/lib\/lazarus"/' -i build.sh
+    sed -e "s@=\$(which lazbuild)@=\"\$(which lazbuild) --lazarusdir=$srcdir/lazarus\"@" -i build.sh
 
 	cd "$srcdir"
 
