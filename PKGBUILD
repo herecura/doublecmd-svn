@@ -4,7 +4,7 @@
 pkgbase=doublecmd-svn
 _svnmod=doublecmd
 pkgname=('doublecmd-svn-gtk2' 'doublecmd-svn-qt5')
-pkgver=8250
+pkgver=8270
 pkgrel=1
 url="http://doublecmd.sourceforge.net/"
 arch=('x86_64')
@@ -22,9 +22,7 @@ optdepends=(
 source=(
 	"$_svnmod::svn://svn.code.sf.net/p/doublecmd/code/trunk"
 )
-sha512sums=(
-	'SKIP'
-)
+sha512sums=('SKIP')
 
 pkgver() {
 	cd "$srcdir/$_svnmod"
