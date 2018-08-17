@@ -4,7 +4,7 @@
 pkgbase=doublecmd-svn
 _svnmod=doublecmd
 pkgname=('doublecmd-svn-gtk2' 'doublecmd-svn-qt5')
-pkgver=8270
+pkgver=8272
 pkgrel=1
 url="http://doublecmd.sourceforge.net/"
 arch=('x86_64')
